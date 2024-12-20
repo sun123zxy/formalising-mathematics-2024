@@ -1,5 +1,7 @@
 # Formalising Mathematics
 
+Note: This repository saves my solution to the exercises. For the original repository, see [formalising-mathematics-2024](https://github.com/ImperialCollegeLondon/formalising-mathematics-2024/tree/main).
+
 This is the repository for Kevin Buzzard's 2024 course on formalising mathematics in the Lean theorem prover. The course ran from January to March 2024. 
 
 Note: this course is written in Lean 4. Previous versions of this course were written in the (now end-of-life) Lean 3.
