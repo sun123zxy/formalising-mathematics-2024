@@ -27,7 +27,9 @@ and also the following tactics
 variable (P Q R S : Prop)
 
 example : P → P ∨ Q := by
-  sorry
+  intro hP
+  left
+  exact hP
   done
 
 example : Q → P ∨ Q := by
