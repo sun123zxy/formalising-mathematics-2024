@@ -14,8 +14,20 @@ open Section2sheet3solutions
 
 -- you can maybe do this one now
 theorem tendsTo_neg {a : ℕ → ℝ} {t : ℝ} (ha : TendsTo a t) : TendsTo (fun n ↦ -a n) (-t) := by
-  sorry
+  rw [tendsTo_def]
+  rw [tendsTo_def] at ha
 
+  intro ε hε
+  specialize ha ε hε
+
+  obtain ⟨ B, ha ⟩ := ha
+  use B
+
+  intro n hn
+  specialize ha n hn
+  rw [←abs_neg]
+  ring_nf
+  exact ha
 /-
 `tendsTo_add` is the next challenge. In a few weeks' time I'll
 maybe show you a two-line proof using filters, but right now
