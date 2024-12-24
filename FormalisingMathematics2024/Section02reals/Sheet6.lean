@@ -94,7 +94,7 @@ theorem tendsTo_unique (a : ℕ → ℝ) (s t : ℝ) (hs : TendsTo a s) (ht : Te
 
   by_contra s_sub_t_neq_0
   let d := |s - t|
-  let d_gt_0 := show 0 < d from by
+  have d_gt_0 := show 0 < d from by
     rw [abs_pos]
     exact s_sub_t_neq_0
   specialize hs (d/2) (by linarith only [d_gt_0])
@@ -106,13 +106,14 @@ theorem tendsTo_unique (a : ℕ → ℝ) (s t : ℝ) (hs : TendsTo a s) (ht : Te
   specialize hs B (by apply le_max_left)
   specialize ht B (by apply le_max_right)
 
-  let h := calc
+  have h := calc
     d = |s - t|                       := by rfl
     _ ≤ |s - a B| + |a B - t|         := by apply abs_sub_le s (a B) t
     _ = |-(a B - s)| + |a B - t|      := by ring_nf
     _ = |a B - s| + |a B - t|         := by rw [abs_neg]
     _ < d/2 + d/2                     := by linarith [hs, ht]
     _ = d                             := by ring
+
   linarith only [h]
 
 end Section2sheet6
