@@ -38,25 +38,45 @@ for group theory. In Lean we use the notation `f ⁻¹' T` for this pullback.
 
 variable (X Y : Type) (f : X → Y) (S : Set X) (T : Set Y)
 
-example : S ⊆ f ⁻¹' (f '' S) := by sorry
+example : S ⊆ f ⁻¹' (f '' S) := by
+  intro x
+  intro hxS
+  use x
 
-example : f '' (f ⁻¹' T) ⊆ T := by sorry
+example : f '' (f ⁻¹' T) ⊆ T := by
+  intro x hx
+  have ⟨t, ⟨ht1, ht2⟩⟩ := hx
+  rw [←ht2]
+  exact ht1
 
 -- `library_search` will do this but see if you can do it yourself.
-example : f '' S ⊆ T ↔ S ⊆ f ⁻¹' T := by sorry
+example : f '' S ⊆ T ↔ S ⊆ f ⁻¹' T := by
+  exact Set.image_subset_iff
 
 -- Pushforward and pullback along the identity map don't change anything
 -- pullback is not so hard
-example : id ⁻¹' S = S := by sorry
+example : id ⁻¹' S = S := by
+  ext
+  rfl
 
 -- pushforward is a little trickier. You might have to `ext x, split`.
-example : id '' S = S := by sorry
+example : id '' S = S := by
+ext x
+constructor
+. intro ⟨x0, ⟨h1,h2⟩⟩
+  rw [←h2]
+  exact h1
+. intro hx
+  use x
+  exact ⟨hx, by rfl⟩
 
 -- Now let's try composition.
 variable (Z : Type) (g : Y → Z) (U : Set Z)
 
 -- preimage of preimage is preimage of comp
-example : g ∘ f ⁻¹' U = f ⁻¹' (g ⁻¹' U) := by sorry
+example : g ∘ f ⁻¹' U = f ⁻¹' (g ⁻¹' U) := by
+  ext x
+  rfl
 
 -- preimage of preimage is preimage of comp
 example : g ∘ f '' S = g '' (f '' S) := by sorry
