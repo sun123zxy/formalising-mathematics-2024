@@ -110,4 +110,13 @@ example : (b⁻¹ * a⁻¹)⁻¹ * 1⁻¹⁻¹ * b⁻¹ * (a⁻¹ * a⁻¹⁻¹�
 
 -- Try this trickier problem: if g^2=1 for all g in G, then G is abelian
 example (h : ∀ g : G, g * g = 1) : ∀ g h : G, g * h = h * g := by
-  sorry
+  intro g₁ g₂
+  have ht : ∀ g : G, g = g⁻¹ := by
+    intro g
+    exact calc
+      g = g * 1 := by rw [mul_one]
+      _ = g * g * g⁻¹ := by rw [mul_assoc, mul_inv_self]
+      _ = g⁻¹ := by rw [h, one_mul]
+  rw [ht (g₁ * g₂)]
+  rw [mul_inv_rev]
+  rw [← ht g₂, ← ht g₁]
